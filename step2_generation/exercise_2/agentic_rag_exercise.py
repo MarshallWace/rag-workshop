@@ -1,4 +1,18 @@
 # Run tests: uv run pytest step2_generation/exercise_2/test_retrieval.py
+#
+# ============================================================================
+# NOTE: This exercise tests only "agentic" difficulty queries!
+# ============================================================================
+# Agentic RAG uses a ReAct agent that can search multiple times, following
+# up on initial results to gather more context. This handles:
+#   - Multi-hop queries (hub chunk → detail chunks)
+#   - Complex questions requiring information synthesis
+#   - Queries where a single search isn't enough
+#
+# The tests here are specifically the "agentic" difficulty level - these are
+# designed to require multiple retrieval steps. Your agent should be able to
+# pass these tests that the simpler approaches couldn't handle!
+# ============================================================================
 
 import logging
 

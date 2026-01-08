@@ -1,4 +1,22 @@
 # Run tests: uv run pytest step1_retrieval/exercise_2/test_retrieval.py
+#
+# ============================================================================
+# NOTE: You are NOT expected to pass all tests!
+# ============================================================================
+# Embedding-based retrieval understands semantic similarity, so it handles
+# paraphrasing and synonyms much better than word-overlap. However, it still
+# struggles with:
+#   - Multi-hop queries requiring information from multiple chunks
+#   - Complex reasoning that needs iterative retrieval
+#   - "Agentic" queries where a single search isn't enough
+#
+# The tests include easy, medium, hard, and agentic difficulty levels.
+# Expect to pass most "easy" and many "medium" tests with this approach.
+#
+# Compare your results to Exercise 1 - you should see improvement!
+# Then move to Step 2 to add generation and see how agentic RAG handles
+# the harder queries.
+# ============================================================================
 
 import asyncio
 

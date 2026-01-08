@@ -1,4 +1,20 @@
 # Run tests: uv run pytest step1_retrieval/exercise_1/test_retrieval.py
+#
+# ============================================================================
+# NOTE: You are NOT expected to pass all tests!
+# ============================================================================
+# Word-overlap retrieval is a basic technique with limitations. It works well
+# for queries that share exact words with the chunks, but struggles with:
+#   - Semantic similarity (synonyms, paraphrasing)
+#   - Multi-source queries requiring multiple chunks
+#   - Complex reasoning questions
+#
+# The tests include easy, medium, hard, and agentic difficulty levels.
+# Expect to pass mainly the "easy" tests with this approach.
+#
+# After completing this exercise, move to Exercise 2 to see how embedding-based
+# retrieval improves results!
+# ============================================================================
 
 from collections import defaultdict
 

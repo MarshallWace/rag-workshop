@@ -1,4 +1,17 @@
 # Run demo: uv run python -m step2_generation.exercise_1.demo_rag
+#
+# ============================================================================
+# NOTE: This exercise has no automated tests - it's a demo!
+# ============================================================================
+# Simple RAG retrieves context once and generates an answer. This works well
+# for straightforward questions but has limitations:
+#   - Single retrieval may miss relevant context
+#   - No ability to refine or follow up on initial search
+#   - Can't handle multi-hop reasoning
+#
+# Run the demo to see it in action, then move to Exercise 2 to implement
+# agentic RAG that can iteratively search for better results!
+# ============================================================================
 
 from step1_retrieval.exercise_2 import preprocess as preprocess_embeddings
 from step1_retrieval.exercise_2 import retrieve as retrieve_chunks
