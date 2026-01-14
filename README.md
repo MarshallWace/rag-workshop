@@ -41,8 +41,8 @@ A hands-on workshop for building Retrieval-Augmented Generation (RAG) systems, p
 
 2. **Clone the repository:**
    ```bash
-   git clone https://github.com/JoelChanZhiYang/workshop-students.git
-   cd workshop-students
+   git clone https://github.com/marshallwace/rag-workshop.git
+   cd rag-workshop
    ```
 
 3. **Install dependencies:**
