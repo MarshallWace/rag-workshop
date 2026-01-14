@@ -21,7 +21,7 @@ async def test_retrieval(test_case, chunks, mocker):
     """Test that retrieve returns the expected chunks for each query."""
     spy = mocker.spy(simple_retrieval, "retrieve")
 
-    await simple_retrieval.retrieve(test_case.query, chunks, top_k=10)
+    await simple_retrieval.retrieve(test_case.query, chunks, top_k=3)
 
     all_sources = {src for r in spy.spy_return_list for src in r.sources}
     assert set(test_case.expected_chunk_ids) <= all_sources, (
