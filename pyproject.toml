@@ -25,8 +25,3 @@ dependencies = [
     "pytest-mock>=3.15.1",
     "pytest-xdist>=3.8.0",
 ]
-
-[project.scripts]
-test-exercise-1 = "retrieval.exercise_1.run_tests:main"
-test-exercise-2 = "retrieval.exercise_2.run_tests:main"
-demo-step2-ex2 = "step2_generation.exercise_2.run_demo:main"

@@ -5,7 +5,28 @@ A hands-on workshop for building Retrieval-Augmented Generation (RAG) systems, p
 ## Prerequisites
 
 - [uv](https://docs.astral.sh/uv/) package manager (handles Python installation automatically)
-- OpenAI API key (or compatible endpoint)
+- OpenAI API key (see below)
+
+## Getting your OpenAI API key
+
+1. **Create an OpenAI account** at https://platform.openai.com/
+
+2. **Give us your OpenAI email** so we can invite you to the organization.
+
+3. **Accept the invitation** to the "MW Hackathon" organization.
+   - Check your email for subject: "You were invited to the organization MW Hackathon on OpenAI"
+
+4. **Generate your API key:**
+   - Go to https://platform.openai.com/
+   - In the top left, change the organization to **MW Hackathon**
+     (You should see "MW Hackathon / RAG Workshop" at the top)
+   - On the left sidebar, click **API keys** (under Organization)
+   - Click **Create new secret key**
+   - Fill in:
+     - **Name:** `<your name>`
+     - **Project:** `RAG Workshop`
+     - **Permissions:** `All`
+   - Click **Create secret key** and copy it to your `.env` file
 
 ## Installation
 
@@ -31,12 +52,10 @@ A hands-on workshop for building Retrieval-Augmented Generation (RAG) systems, p
    This will automatically download Python 3.14 and install all dependencies.
 
 4. **Configure environment:**
-   Create a `.env` file in the project root:
+   ```bash
+   cp .env.sample .env
    ```
-   OPENAI_API_KEY=your-api-key-here
-   # Optional: use a custom endpoint
-   # OPENAI_BASE_URL=https://your-endpoint.com/v1
-   ```
+   Then edit `.env` and add your OpenAI API key (see [Getting your OpenAI API key](#getting-your-openai-api-key) above).
 
 5. **Verify setup:**
    ```bash
