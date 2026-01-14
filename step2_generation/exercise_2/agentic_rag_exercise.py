@@ -25,6 +25,7 @@ from utils.llm_utils import llm
 from utils.types import Chunks, GenerationResult, RetrievalResult
 
 logger = logging.getLogger(__name__)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 async def preprocess(test_chunks: list[TestChunk]) -> Chunks:
