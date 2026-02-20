@@ -40,9 +40,7 @@ async def preprocess(test_chunks: list[TestChunk]) -> Chunks:
         >>> chunks["1"]["content"]
         "hello"
     """
-    # TODO: Convert test_chunks to dictionary format
-    # HINT: Use a dictionary comprehension to create {chunk_id: {"content": chunk_content}}
-    raise NotImplementedError("Students need to implement preprocess()")
+    return {chunk.chunk_id: {"content": chunk.chunk_content} for chunk in test_chunks}
 
 
 async def retrieve(question: str, chunks: Chunks, top_k: int = 3) -> RetrievalResult:
@@ -61,6 +59,15 @@ async def retrieve(question: str, chunks: Chunks, top_k: int = 3) -> RetrievalRe
         - sources: List of chunk_ids for top_k chunks
         - metadata: Empty dict (not used in this exercise)
     """
-    # TODO: Implement word-overlap scoring
-    # HINT: defaultdict can help with counting
-    raise NotImplementedError("Students need to implement retrieve()")
+    question_words = set(question.lower().split())
+
+    scores = defaultdict(int)
+    for chunk_id, chunk_data in chunks.items():
+        chunk_words = chunk_data["content"].lower().split()
+        for word in chunk_words:
+            if word in question_words:
+                scores[chunk_id] += 1
+
+    ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    top_chunk_ids = [chunk_id for chunk_id, _count in ranked[:top_k]]
+    return RetrievalResult(sources=top_chunk_ids)

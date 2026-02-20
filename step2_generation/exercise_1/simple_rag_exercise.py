@@ -62,5 +62,16 @@ async def generate(question: str, chunks: Chunks) -> GenerationResult:
     API:
         answer = await generate_completion("your prompt here")
     """
-    # TODO: Call retrieve(), build prompt with context, generate answer
-    raise NotImplementedError("Students need to implement generate()")
+    retrieval_result = await retrieve(question, chunks, top_k=3)
+
+    context_pieces = [chunks[cid]["content"] for cid in retrieval_result.sources]
+    context = "\n\n".join(context_pieces)
+
+    prompt = (
+        f"Here is relevant information:\n\n{context}\n\n"
+        f"Question: {question}\n\n"
+        f"Answer:"
+    )
+
+    answer = await generate_completion(prompt)
+    return GenerationResult(answer=answer)

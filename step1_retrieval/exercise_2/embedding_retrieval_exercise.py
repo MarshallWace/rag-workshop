@@ -41,8 +41,14 @@ async def preprocess(test_chunks: list[TestChunk]) -> Chunks:
     API:
         embedding = await get_embedding("some text")  # returns list[float]
     """
-    # TODO: Embed each chunk and store in dictionary
-    raise NotImplementedError("Students need to implement preprocess()")
+    embeddings = await asyncio.gather(
+        *[get_embedding(chunk.chunk_content) for chunk in test_chunks]
+    )
+
+    return {
+        chunk.chunk_id: {"content": chunk.chunk_content, "embedding": embedding}
+        for chunk, embedding in zip(test_chunks, embeddings)
+    }
 
 
 async def retrieve(question: str, chunks: Chunks, top_k: int = 3) -> RetrievalResult:
@@ -62,5 +68,15 @@ async def retrieve(question: str, chunks: Chunks, top_k: int = 3) -> RetrievalRe
         embedding = await get_embedding("some text")  # returns list[float]
         scores = cosine_similarity_batch(query_emb, [emb1, emb2, ...])  # returns list[float]
     """
-    # TODO: Embed query, compute similarities, return top_k chunks
-    raise NotImplementedError("Students need to implement retrieve()")
+    query_embedding = await get_embedding(question)
+
+    chunk_ids = list(chunks.keys())
+    chunk_embeddings = [chunks[cid]["embedding"] for cid in chunk_ids]
+
+    scores = cosine_similarity_batch(query_embedding, chunk_embeddings)
+
+    # Pair each chunk with its score, sort by score descending, take top_k
+    scored_chunks = sorted(zip(chunk_ids, scores), key=lambda pair: pair[1], reverse=True)
+    top_chunk_ids = [chunk_id for chunk_id, _score in scored_chunks[:top_k]]
+
+    return RetrievalResult(sources=top_chunk_ids)

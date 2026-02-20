@@ -61,5 +61,32 @@ async def generate(question: str, chunks: Chunks) -> GenerationResult:
         retrieve(query, chunks, top_k) - Search the knowledge base
         llm - The language model instance
     """
-    # TODO: Create a retrieval tool and ReAct agent to answer the question
-    raise NotImplementedError("Students need to implement generate()")
+    async def search_knowledge_base(query: str) -> str:
+        """Search the knowledge base for information relevant to the query.
+
+        Use this tool to find facts, details, or context needed to answer a question.
+        You can call this multiple times with different queries to gather more information.
+        """
+        result = await retrieve(query, chunks)
+        contents = [chunks[cid]["content"] for cid in result.sources]
+        return "\n\n".join(contents)
+
+    search_tool = FunctionTool.from_defaults(
+        async_fn=search_knowledge_base,
+        name="search_knowledge_base",
+        description=(
+            "Search the knowledge base for information relevant to a query. "
+            "Returns text content from the most relevant chunks. "
+            "Call multiple times with different queries to gather more context."
+        ),
+    )
+
+    agent = ReActAgent(
+        name="rag_agent",
+        tools=[search_tool],
+        llm=llm,
+        verbose=False,
+    )
+
+    response = await agent.run(user_msg=question)
+    return GenerationResult(answer=str(response))
